@@ -1,4 +1,5 @@
 import { Controller, Get, Req } from '@nestjs/common';
+import { Client } from 'pg';
 import { AppService } from './app.service';
 
 @Controller()
