@@ -7,7 +7,8 @@ export class AppController {
 
   @Get()
   getHello(@Req() req): string {
-    console.debug('Req ip = ', req.ip, req.method, req.originalUrl);
+    console.log('Req ip = ', req.ip, req.method, req.originalUrl);
+    console.log(JSON.stringify(req.headers));
     return this.appService.getHello();
   }
 }
