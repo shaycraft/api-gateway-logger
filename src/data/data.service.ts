@@ -4,18 +4,21 @@ import { Client, ClientConfig } from 'pg';
 
 @Injectable()
 export class DataService {
-  private readonly _client: Client;
+  private _client: Client;
+  private readonly _config: ClientConfig;
 
+  // todo:  inject client via constructor injection
   constructor() {
-    const config: ClientConfig = {
+    this._config = {
       user: process.env.PG_USER,
       database: process.env.PG_DATABASE,
       password: process.env.PG_PASSWORD,
     };
-    this._client = new Client(config);
   }
 
   public async logRequest(req: RequestDTO): Promise<number> {
+    this._client = new Client(this._config);
+
     await this._client.connect();
 
     const query =
@@ -25,6 +28,8 @@ export class DataService {
       req.source,
       JSON.stringify(req.headers),
     ]);
+
+    await this._client.end();
 
     return res.rowCount;
   }
