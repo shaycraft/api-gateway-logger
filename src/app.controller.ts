@@ -22,11 +22,16 @@ export class AppController {
   }
 
   @Get('/foo')
-  public getFoo(@Req() req): any {
+  public getFoo(@Req() req: Request): any {
     console.log(new Date());
     console.log('Req ip (foo) = ', req.ip);
     return {
       foo: 'foobar',
     };
+  }
+
+  @Get('/items')
+  public getDem(@Req() req: Request): Promise<unknown[]> {
+    return this.dataService.getItems();
   }
 }

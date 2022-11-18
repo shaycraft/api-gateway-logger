@@ -33,4 +33,16 @@ export class DataService {
 
     return res.rowCount;
   }
+
+  public async getItems(): Promise<unknown[]> {
+    this._client = new Client(this._config);
+
+    await this._client.connect();
+
+    const query = 'SELECT * from requests';
+
+    const res = await this._client.query(query);
+
+    return res.rows;
+  }
 }
