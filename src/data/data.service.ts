@@ -34,7 +34,7 @@ export class DataService {
     return res.rowCount;
   }
 
-  public async getItems(): Promise<unknown[]> {
+  public async getItems(): Promise<any[]> {
     this._client = new Client(this._config);
 
     await this._client.connect();

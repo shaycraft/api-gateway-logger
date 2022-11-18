@@ -31,7 +31,12 @@ export class AppController {
   }
 
   @Get('/items')
-  public getDem(@Req() req: Request): Promise<unknown[]> {
-    return this.dataService.getItems();
+  public async getDem(@Req() req: Request): Promise<any[]> {
+    const items = await this.dataService.getItems();
+
+    return items.map((item) => ({
+      ...item,
+      headers: JSON.parse(item.headers),
+    }));
   }
 }
